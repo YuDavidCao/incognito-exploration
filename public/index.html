@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chrome cache explorer</title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <main>
+    <h1>Scenarios</h1>
+    <p class="muted">
+      Core 11 tests (S01–S11) — record results in <code>docs/OBSERVATIONS.md</code>.
+    </p>
+
+    <p class="muted">Each scenario page has reset buttons for HTTP cache, localStorage, sessionStorage, cookies (JS + HttpOnly), IndexedDB, and Service Worker / Cache API.</p>
+
+    <ul class="scenario-nav" id="scenario-nav"></ul>
+  </main>
+  <script src="/js/scenarios.js"></script>
+  <script>
+    document.getElementById('scenario-nav').innerHTML = window.SCENARIOS.map(
+      (s) =>
+        `<li><a href="/${s.slug}.html"><span class="id">${s.id}</span> ${s.title}</a></li>`
+    ).join('');
+  </script>
+</body>
+</html>
