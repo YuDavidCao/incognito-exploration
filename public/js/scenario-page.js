@@ -74,7 +74,7 @@
   <main>
     <p class="muted"><a href="/">Dashboard</a> · ${scenario.id}</p>
     <h1>${scenario.id} — ${scenario.title}</h1>
-    <p class="muted">${scenario.intro} Record in <code>docs/OBSERVATIONS.md</code>.</p>
+    <p class="muted">${scenario.intro} Record in <code>README.md</code> (Observations section).</p>
 
     <section>
       <h2>Steps</h2>

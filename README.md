@@ -1,6 +1,6 @@
 # Incognito exploration
 
-Local harness for testing what Chrome caches and stores across normal tabs, incognito tabs, and windows.
+Local harness for testing what Chrome caches and stores across normal tabs, incognito tabs, and windows, tested on Google Chrome version 150.0.7871.181 (Official Build) (arm64)
 
 ## Run
 
@@ -13,8 +13,6 @@ Open **http://localhost:3847**
 
 - **Dashboard** — links to all scenarios (S01–S11)
 - **Scenarios** — `/s01.html` … `/s11.html` (shared template, per-scenario config in `public/js/scenarios.js`)
-
-Record results in [`docs/OBSERVATIONS.md`](docs/OBSERVATIONS.md).
 
 ## Scenarios (S01–S11)
 
@@ -34,12 +32,32 @@ Each scenario has a **source** context (where you click **Write probe**) and a *
 | **S10** | Same normal tab — hard reload | Normal tab | Same normal tab after hard reload (Cmd+Shift+R / Ctrl+Shift+R) | Storage persists; HTTP cache bypassed on hard reload |
 | **S11** | Same incognito tab — hard reload | Incognito tab | Same incognito tab after hard reload (Cmd+Shift+R / Ctrl+Shift+R) | Same as S10 within an incognito session |
 
+## Observations
+
+Record results for each core scenario. **Write probe** in source context, **Read probe** in target.
+
+**Legend:** ✅ - persisted data · ❌ - data missing & gone & not persisted
+
+| ID | localStorage | cookies | HttpOnly | sessionStorage | IndexedDB | OPFS | SW | Cache API | HTTP cache (script) | HTTP cache (fetch) |
+|----|--------------|---------|----------|----------------|-----------|------|-----|-----------|---------------------|--------------------|
+| S01 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| S02 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| S03 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| S04 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| S05 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| S06 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| S07 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| S08 | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| S09 | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| S10 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| S11 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+
 ## How to test
 
 1. Open a scenario page in the right browsing context (normal vs incognito).
 2. Click **Write probe**.
 3. Follow the steps on that page (reload, new tab, new window, etc.).
-4. Fill in the matching row in `docs/OBSERVATIONS.md`.
+4. Fill in the matching row in the **Observations** table above.
 
 DevTools → Network: keep **Disable cache** off unless you intentionally bypass cache.
 
@@ -74,5 +92,4 @@ public/
   js/scenario-page.js    Shared UI wiring
   js/probe-loader.js     Loads the cacheable probe script asset
   sw.js                  Service worker for Cache API writes
-docs/OBSERVATIONS.md
 ```
